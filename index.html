@@ -76,7 +76,7 @@
       position: absolute; inset: 0;
       display: flex; flex-direction: column;
       z-index: 8;
-      background: linear-gradient(170deg, rgba(238,232,216,0.97) 0%, rgba(228,218,196,0.98) 100%);
+      background: linear-gradient(170deg, rgba(238,232,216,1) 0%, rgba(228,218,196,1) 100%);
       padding: 28px 20px 20px;
       overflow-y: auto;
       visibility: hidden; opacity: 0; pointer-events: none;
@@ -680,7 +680,7 @@ function buildSongList() {
     var num=document.createElement('div'); num.className='song-num'; num.textContent=idx+1;
     var info=document.createElement('div'); info.className='song-info';
     var title=document.createElement('div'); title.className='song-title'; title.textContent=song.title;
-    var meta=document.createElement('div'); meta.className='song-meta'; meta.textContent='♪ · амбієнт · демо';
+    var meta=document.createElement('div'); meta.className='song-meta'; meta.textContent='♪ · амбієнт';
     info.appendChild(title); info.appendChild(meta);
     var arrow=document.createElement('span'); arrow.className='song-arrow'; arrow.textContent='›';
     item.appendChild(num); item.appendChild(info); item.appendChild(arrow);
@@ -717,10 +717,10 @@ function goToFinal() {
   showOverlay('scr-creating');
   var stages=[{time:900,msg:'✦ Додаємо трішки магії...',dot:1},{time:1800,msg:'♪ Готуємо музичний подарунок...',dot:2},{time:2700,msg:'♡ Майже готово...',dot:3}];
   stages.forEach(function(s){setTimeout(function(){var el=document.getElementById('creating-msg');var dot=document.getElementById('dot-'+s.dot);if(el)el.textContent=s.msg;if(dot)dot.classList.add('lit');},s.time);});
-  setTimeout(function(){showOverlay('scr-final');var te=document.getElementById('final-title');var se=document.getElementById('final-sub');var n=state.name;if(te)te.textContent=n?'♡ Знак уваги для '+n:'♡ Знак уваги готовий';if(se)se.textContent=n?'"'+n+'" скоро отримає вашу найтеплішу думку...':'Ваш подарунок готовий до відправлення';},3700);
+  setTimeout(function(){showOverlay('scr-final');var te=document.getElementById('final-title');var se=document.getElementById('final-sub');var n=state.name;if(te)te.textContent=n?'♡ Знак уваги для '+n:'♡ Знак уваги готовий';var st=state.songIdx>=0?'«'+SONGS[state.songIdx].title+'» ':'музику ';if(se)se.textContent=n?'Надішліть '+st+'для '+n+' — натисніть кнопку нижче ♡':'Натисніть «Надіслати», щоб поділитись подарунком ♡';},3700);
 }
-function sendToTelegram() { var name=state.name||'тебе'; var url='https://t.me/vitayko_ua_bot'; var text='♡ '+name+', тобі музичне привітання від VitayKo!'; if(tg){tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text));}else if(navigator.share){navigator.share({title:'VitayKo',text:text,url:url}).catch(function(){});}else if(navigator.clipboard){navigator.clipboard.writeText(url).then(function(){showToast('✦ Посилання скопійовано!');});} }
-function downloadAudio() { if(state.songIdx<0){showToast('♡ Спочатку оберіть трек');return;} var a=document.createElement('a'); a.href=SONGS[state.songIdx].src; a.download='vitayko-'+(state.name||'подарунок')+'.mp3'; a.target='_blank'; document.body.appendChild(a); a.click(); document.body.removeChild(a); showToast('↓ Завантаження розпочато...'); }
+function sendToTelegram() { var name=state.name||'тебе'; var url='https://t.me/vitayko_ua_bot'; var song=state.songIdx>=0?' · «'+SONGS[state.songIdx].title+'»':''; var occasion=state.occasionLabel?' · '+state.occasionLabel.toLowerCase():''; var shareText='♡ '+name+occasion+song+' — подарунок уваги від VitayKo'; if(tg){tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(shareText));}else if(navigator.share){navigator.share({title:'VitayKo',text:shareText+': '+url,url:url}).catch(function(){});}else if(navigator.clipboard){navigator.clipboard.writeText(shareText+': '+url).then(function(){showToast('❖ Посилання скопійовано!');});} }
+function downloadAudio() { if(state.songIdx<0){showToast('♡ Спочатку оберіть трек');return;} var src=SONGS[state.songIdx].src; if(src.indexOf('songs/')<0){showToast('♪ Завантаження буде доступне у фінальній версії');return;} var a=document.createElement('a'); a.href=src; a.download='vitayko-'+(state.name||'подарунок')+'.mp3'; a.target='_blank'; document.body.appendChild(a); a.click(); document.body.removeChild(a); showToast('↓ Завантаження розпочато...'); }
 function listenAgain() { showOverlay('scr-player'); if(state.songIdx>=0)setTimeout(function(){playAudio();},400); }
 function shareApp() { var url='https://t.me/vitayko_ua_bot'; var text='♡ VitayKo — музичний подарунок уваги для рідних. Спробуй!'; if(tg){tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text));}else if(navigator.share){navigator.share({title:'VitayKo',text:text,url:url}).catch(function(){});}else if(navigator.clipboard){navigator.clipboard.writeText(url).then(function(){showToast('✦ Посилання скопійовано!');});} }
 function startOver() { haptic('medium'); pauseAudio(); state.occasion=''; state.occasionLabel=''; state.name=''; state.songIdx=-1; var n=document.getElementById('rec-name'); var e=document.getElementById('name-echo'); if(n)n.value=''; if(e){e.textContent='';e.classList.remove('show');} var pn=document.getElementById('player-song-name'); if(pn)pn.textContent='♪ Оберіть трек нижче'; hideAllOverlays(); showToast('♡ Починаємо спочатку'); }
