@@ -270,11 +270,16 @@
       box-shadow: 0 0 0 3px rgba(200,168,75,0.12);
     }
     .name-input::placeholder { color: #A8B898; font-style: italic; font-size: 16px; }
+    @keyframes fadeRise {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
     .name-echo {
       font-family: 'Cormorant Garamond', serif;
       font-size: 14px; font-style: italic; color: #9A7A2E;
-      text-align: center; min-height: 18px; margin-top: 8px; opacity: 0.75;
+      text-align: center; min-height: 18px; margin-top: 8px; opacity: 0;
     }
+    .name-echo.show { animation: fadeRise 0.35s ease-out forwards; }
     .name-hint { font-size: 11px; color: #A8B898; text-align: center; margin-top: 10px; }
 
     /* ══ ПЛЕЄР ══ */
@@ -366,6 +371,11 @@
     .sdot { width: 8px; height: 8px; border-radius: 50%; background: rgba(200,168,75,0.2); transition: all 0.4s; }
     .sdot.lit { background: #C8A84B; box-shadow: 0 0 10px rgba(200,168,75,0.6); }
     .creating-msg { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic; color: #5C6B45; min-height: 22px; }
+    @keyframes heartPulse {
+      0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 4px rgba(200,168,75,0.20)); }
+      50%       { transform: scale(1.08); filter: drop-shadow(0 0 14px rgba(200,168,75,0.55)); }
+    }
+    .creating-wrap svg { animation: heartPulse 2s ease-in-out infinite; transform-origin: center center; }
 
     /* ══ ФІНАЛ ══ */
     .final-wrap { display: flex; flex-direction: column; align-items: center; flex: 1; justify-content: space-between; padding-bottom: 20px; }
@@ -660,7 +670,7 @@ function goBack(id) { haptic('light'); if(id==='scr-occasion'){hideAllOverlays()
 function goToOccasion(e) { haptic('medium'); if(e&&e.clientX)spawnParticles(e.clientX,e.clientY); showOverlay('scr-occasion'); }
 function openPlayerDirect() { haptic('light'); state.occasion=''; state.occasionLabel=''; var l=document.getElementById('player-occasion-label'); if(l)l.textContent='♪ · просто музика'; var tl=document.getElementById('player-track-label'); if(tl)tl.textContent='♡ · музика для натхнення'; buildSongList(); showOverlay('scr-player'); }
 function selectOccasion(key, label) { haptic('light'); state.occasion=key; state.occasionLabel=label; var n=document.getElementById('name-occasion-label'); if(n)n.textContent='♡ · '+label.toLowerCase(); var p=document.getElementById('player-occasion-label'); if(p)p.textContent='♡ · '+label.toLowerCase(); var t=document.getElementById('player-track-label'); if(t)t.textContent='♡ · '+label.toLowerCase(); setTimeout(function(){showOverlay('scr-name');},380); }
-function onNameInput() { var name=document.getElementById('rec-name').value.trim(); state.name=name; var echo=document.getElementById('name-echo'); if(echo)echo.textContent=name?'♡ · для '+name+' · з теплом':''; }
+function onNameInput() { var name=document.getElementById('rec-name').value.trim(); state.name=name; var echo=document.getElementById('name-echo'); if(echo){echo.classList.remove('show');void echo.offsetWidth;echo.textContent=name?'♡ · для '+name+' · з теплом':'';if(name)echo.classList.add('show');} }
 function goToPlayer() { haptic('light'); var n=document.getElementById('rec-name'); if(n)state.name=n.value.trim(); buildSongList(); showOverlay('scr-player'); }
 function stopAndBack() { pauseAudio(); goBack('scr-player'); }
 function buildSongList() {
@@ -713,7 +723,7 @@ function sendToTelegram() { var name=state.name||'тебе'; var url='https://t.
 function downloadAudio() { if(state.songIdx<0){showToast('♡ Спочатку оберіть трек');return;} var a=document.createElement('a'); a.href=SONGS[state.songIdx].src; a.download='vitayko-'+(state.name||'подарунок')+'.mp3'; a.target='_blank'; document.body.appendChild(a); a.click(); document.body.removeChild(a); showToast('↓ Завантаження розпочато...'); }
 function listenAgain() { showOverlay('scr-player'); if(state.songIdx>=0)setTimeout(function(){playAudio();},400); }
 function shareApp() { var url='https://t.me/vitayko_ua_bot'; var text='♡ VitayKo — музичний подарунок уваги для рідних. Спробуй!'; if(tg){tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text));}else if(navigator.share){navigator.share({title:'VitayKo',text:text,url:url}).catch(function(){});}else if(navigator.clipboard){navigator.clipboard.writeText(url).then(function(){showToast('✦ Посилання скопійовано!');});} }
-function startOver() { haptic('medium'); pauseAudio(); state.occasion=''; state.occasionLabel=''; state.name=''; state.songIdx=-1; var n=document.getElementById('rec-name'); var e=document.getElementById('name-echo'); if(n)n.value=''; if(e)e.textContent=''; var pn=document.getElementById('player-song-name'); if(pn)pn.textContent='♪ Оберіть трек нижче'; hideAllOverlays(); showToast('♡ Починаємо спочатку'); }
+function startOver() { haptic('medium'); pauseAudio(); state.occasion=''; state.occasionLabel=''; state.name=''; state.songIdx=-1; var n=document.getElementById('rec-name'); var e=document.getElementById('name-echo'); if(n)n.value=''; if(e){e.textContent='';e.classList.remove('show');} var pn=document.getElementById('player-song-name'); if(pn)pn.textContent='♪ Оберіть трек нижче'; hideAllOverlays(); showToast('♡ Починаємо спочатку'); }
 function spawnParticles(x,y) { var g=['♡','✦','♪','♫','♩','·']; for(var i=0;i<8;i++){(function(idx){var el=document.createElement('div');el.className='particle';el.textContent=g[idx%g.length];var angle=(idx/8)*Math.PI*2;var dist=35+Math.random()*35;el.style.setProperty('--tx',Math.cos(angle)*dist+'px');el.style.left=x+'px';el.style.top=y+'px';el.style.color=idx%2===0?'#C8A84B':'#5C6B45';el.style.fontSize=(11+Math.floor(Math.random()*10))+'px';document.body.appendChild(el);setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},1400);})(i);} }
 </script>
 </body>
