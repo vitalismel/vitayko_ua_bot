@@ -427,6 +427,18 @@
     }
 
     /* ══ LOGO SVG ══ */
+    /* ══ GIFT CARD PREVIEW ══ */
+    .final-gift-card {
+      background: rgba(200,168,75,0.08);
+      border: 1px solid rgba(200,168,75,0.28);
+      border-radius: 16px; padding: 14px 20px;
+      text-align: center; width: 100%; margin-bottom: 12px;
+    }
+    .fgc-track { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: #3D4A2E; margin-bottom: 3px; }
+    .fgc-for { font-size: 11px; color: #7A8C5E; font-style: italic; letter-spacing: 0.04em; }
+    /* ══ OCCASION TAP GLOW ══ */
+    @keyframes occTap { 0%,100% { background:rgba(253,252,248,0.7); } 50% { background:rgba(200,168,75,0.18); box-shadow:0 0 16px rgba(200,168,75,0.25); } }
+    .occ-item.tapped { animation: occTap 0.36s ease-out forwards; }
     .logo-svg { filter: drop-shadow(0 3px 8px rgba(200,168,75,0.3)); }
     .logo-svg-sm { width: 30px; height: 30px; filter: drop-shadow(0 2px 5px rgba(200,168,75,0.25)); }
   </style>
@@ -476,26 +488,15 @@
     <!-- Кнопки внизу — поверх зображення -->
     <div class="home-buttons">
       <!-- Слоган над кнопками -->
-      <div style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:#3D4A2E;margin-bottom:6px;text-shadow:0 1px 4px rgba(255,255,255,0.5);">
-        Подаруй те, що відчуваєш.
-        <div style="font-size:14px;color:#C8A84B;margin-top:2px;">♡</div>
+      <div style="text-align:center;margin-bottom:8px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:#3D4A2E;text-shadow:0 1px 4px rgba(255,255,255,0.5);">Оберіть привід · музику · надішліть ♡</div>
+        <div style="font-size:11px;color:#9A7A2E;margin-top:4px;letter-spacing:0.06em;">три кроки · дві хвилини · один теплий подарунок</div>
       </div>
 
       <button class="btn-main" onclick="goToOccasion(event)">
         <div class="btn-main-icon">♡</div>
         Створити подарунок
       </button>
-
-      <div class="btn-row">
-        <button class="btn-sec" onclick="openPlayerDirect()">
-          <span>Послухати</span>
-          <span class="btn-sec-sub">надихнутись музикою</span>
-        </button>
-        <button class="btn-sec" onclick="goToOccasion(event)">
-          <span>Для ваших людей</span>
-          <span class="btn-sec-sub">подарунки для близьких</span>
-        </button>
-      </div>
     </div>
 
   </div><!-- /scr-home -->
@@ -516,16 +517,16 @@
     </div>
     <div class="gold-divider"></div>
     <div class="occasion-list">
-      <div class="occ-item" onclick="selectOccasion('birthday','День народження')"><div class="occ-mark">♡</div><div class="occ-info"><div class="occ-name">День народження</div><div class="occ-desc">Найособливіший день у році</div></div><span class="occ-arrow">›</span></div>
-      <div class="occ-item" onclick="selectOccasion('anniversary','Річниця')"><div class="occ-mark">✦</div><div class="occ-info"><div class="occ-name">Річниця</div><div class="occ-desc">Особливий спільний день</div></div><span class="occ-arrow">›</span></div>
-      <div class="occ-item" onclick="selectOccasion('love','Просто люблю тебе')"><div class="occ-mark">♡</div><div class="occ-info"><div class="occ-name">Просто люблю тебе</div><div class="occ-desc">Без приводу — від серця</div></div><span class="occ-arrow">›</span></div>
-      <div class="occ-item" onclick="selectOccasion('gratitude','Подяка')"><div class="occ-mark">✦</div><div class="occ-info"><div class="occ-name">Подяка</div><div class="occ-desc">За все, що ти робиш</div></div><span class="occ-arrow">›</span></div>
-      <div class="occ-item" onclick="selectOccasion('achievement','Досягнення')"><div class="occ-mark">♪</div><div class="occ-info"><div class="occ-name">Досягнення</div><div class="occ-desc">Ти зробив щось неймовірне</div></div><span class="occ-arrow">›</span></div>
-      <div class="occ-item" onclick="selectOccasion('newborn','Народження дитини')"><div class="occ-mark">♡</div><div class="occ-info"><div class="occ-name">Народження дитини</div><div class="occ-desc">Нове маленьке диво</div></div><span class="occ-arrow">›</span></div>
-      <div class="occ-item" onclick="selectOccasion('support','Підтримка')"><div class="occ-mark">♡</div><div class="occ-info"><div class="occ-name">Підтримка</div><div class="occ-desc">Я поруч, що б не сталось</div></div><span class="occ-arrow">›</span></div>
-      <div class="occ-item" onclick="selectOccasion('recovery','Одужання')"><div class="occ-mark">✦</div><div class="occ-info"><div class="occ-name">Одужання</div><div class="occ-desc">Все буде добре, я вірю в тебе</div></div><span class="occ-arrow">›</span></div>
-      <div class="occ-item" onclick="selectOccasion('newstart','Новий початок')"><div class="occ-mark">♪</div><div class="occ-info"><div class="occ-name">Новий початок</div><div class="occ-desc">Нова сторінка, нові мрії</div></div><span class="occ-arrow">›</span></div>
-      <div class="occ-item" onclick="selectOccasion('proud','Пишаюсь тобою')"><div class="occ-mark">✦</div><div class="occ-info"><div class="occ-name">Пишаюсь тобою</div><div class="occ-desc">Ти — моя гордість</div></div><span class="occ-arrow">›</span></div>
+      <div class="occ-item" onclick="selectOccasion('birthday','День народження',this)"><div class="occ-mark">♡</div><div class="occ-info"><div class="occ-name">День народження</div><div class="occ-desc">Найособливіший день у році</div></div><span class="occ-arrow">›</span></div>
+      <div class="occ-item" onclick="selectOccasion('anniversary','Річниця',this)"><div class="occ-mark">✦</div><div class="occ-info"><div class="occ-name">Річниця</div><div class="occ-desc">Особливий спільний день</div></div><span class="occ-arrow">›</span></div>
+      <div class="occ-item" onclick="selectOccasion('love','Просто люблю тебе',this)"><div class="occ-mark">♡</div><div class="occ-info"><div class="occ-name">Просто люблю тебе</div><div class="occ-desc">Без приводу — від серця</div></div><span class="occ-arrow">›</span></div>
+      <div class="occ-item" onclick="selectOccasion('gratitude','Подяка',this)"><div class="occ-mark">✦</div><div class="occ-info"><div class="occ-name">Подяка</div><div class="occ-desc">За все, що ти робиш</div></div><span class="occ-arrow">›</span></div>
+      <div class="occ-item" onclick="selectOccasion('achievement','Досягнення',this)"><div class="occ-mark">♪</div><div class="occ-info"><div class="occ-name">Досягнення</div><div class="occ-desc">Ти зробив щось неймовірне</div></div><span class="occ-arrow">›</span></div>
+      <div class="occ-item" onclick="selectOccasion('newborn','Народження дитини',this)"><div class="occ-mark">♡</div><div class="occ-info"><div class="occ-name">Народження дитини</div><div class="occ-desc">Нове маленьке диво</div></div><span class="occ-arrow">›</span></div>
+      <div class="occ-item" onclick="selectOccasion('support','Підтримка',this)"><div class="occ-mark">♡</div><div class="occ-info"><div class="occ-name">Підтримка</div><div class="occ-desc">Я поруч, що б не сталось</div></div><span class="occ-arrow">›</span></div>
+      <div class="occ-item" onclick="selectOccasion('recovery','Одужання',this)"><div class="occ-mark">✦</div><div class="occ-info"><div class="occ-name">Одужання</div><div class="occ-desc">Все буде добре, я вірю в тебе</div></div><span class="occ-arrow">›</span></div>
+      <div class="occ-item" onclick="selectOccasion('newstart','Новий початок',this)"><div class="occ-mark">♪</div><div class="occ-info"><div class="occ-name">Новий початок</div><div class="occ-desc">Нова сторінка, нові мрії</div></div><span class="occ-arrow">›</span></div>
+      <div class="occ-item" onclick="selectOccasion('proud','Пишаюсь тобою',this)"><div class="occ-mark">✦</div><div class="occ-info"><div class="occ-name">Пишаюсь тобою</div><div class="occ-desc">Ти — моя гордість</div></div><span class="occ-arrow">›</span></div>
     </div>
     <div class="back-link" onclick="goBack('scr-occasion')">← повернутись</div>
   </div>
@@ -546,10 +547,10 @@
     </div>
     <div class="gold-divider"></div>
     <div class="name-card">
-      <div class="name-label">♡ · ім'я людини</div>
+      <div class="name-label">Для кого ♡</div>
       <input class="name-input" type="text" id="rec-name" placeholder="Наприклад: Марія, Тато..." maxlength="30" oninput="onNameInput()"/>
       <div class="name-echo" id="name-echo"></div>
-      <div class="name-hint">✦ · необов'язково · можна пропустити</div>
+      <div class="name-hint">♡ · якщо є ім'я — подарунок стане особистим</div>
     </div>
     <div class="gold-divider"></div>
     <button class="btn-confirm" onclick="goToPlayer()">♪ &nbsp;Обрати музику</button>
@@ -595,7 +596,7 @@
       </div>
     </div>
     <div class="song-list" id="song-list"></div>
-    <button class="btn-confirm" onclick="goToFinal()" style="margin-top:4px;">✦ &nbsp;Надіслати як подарунок</button>
+    <button class="btn-confirm" id="player-confirm-btn" onclick="goToFinal()" style="margin-top:4px;">♡ &nbsp;Цей трек · далі</button>
     <div class="back-link" onclick="stopAndBack()">← повернутись</div>
   </div>
 
@@ -628,6 +629,10 @@
           <text x="44" y="78" font-family="serif" font-size="38" fill="#5C6B45" opacity="0.8">𝄞</text>
         </svg>
       </div>
+      <div class="final-gift-card" id="final-gift-card" style="display:none;">
+        <div class="fgc-track" id="fgc-track"></div>
+        <div class="fgc-for" id="fgc-for"></div>
+      </div>
       <div class="final-title" id="final-title">♡ Знак уваги готовий</div>
       <div class="final-sub" id="final-sub">Ваш подарунок готовий до відправлення</div>
       <div class="gold-divider" style="width:100%;"></div>
@@ -640,7 +645,7 @@
         <button class="btn-share-app" onclick="shareApp();haptic()">✦ · поділитись додатком · ✦</button>
       </div>
       <div class="gold-divider" style="width:100%;margin-top:14px;"></div>
-      <div class="back-link" onclick="startOver()">♡ · почати спочатку · ♡</div>
+      <div class="back-link" onclick="startOver()">♡ · подарувати ще комусь · ♡</div>
     </div>
   </div>
 
@@ -653,11 +658,11 @@ if (tg) { tg.ready(); tg.expand(); tg.BackButton.onClick(function() { var a = do
 function haptic(t) { if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred(t || 'light'); }
 
 var SONGS = [
-  { id:0, title:'Тепло серця',   src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
-  { id:1, title:'Промінь уваги', src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
-  { id:2, title:'Момент щастя',  src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
-  { id:3, title:"З любов'ю",    src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
-  { id:4, title:'Тихий вечір',   src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' }
+  { id:0, title:'Тепло серця',   mood:'ніжний, як вечірнє тепло',         src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
+  { id:1, title:'Промінь уваги', mood:'світлий, як ранкове сонце',         src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
+  { id:2, title:'Момент щастя',  mood:'радісний, легкий і живий',          src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
+  { id:3, title:"З любов'ю",    mood:'глибокий, щирий, від серця',        src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
+  { id:4, title:'Тихий вечір',   mood:'спокійний, як тиша після дощу',    src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' }
 ];
 var state = { occasion:'', occasionLabel:'', name:'', songIdx:-1, playing:false };
 var toastTimer = null;
@@ -669,7 +674,7 @@ function hideAllOverlays() { document.querySelectorAll('.overlay').forEach(funct
 function goBack(id) { haptic('light'); if(id==='scr-occasion'){hideAllOverlays();} else if(id==='scr-name'){showOverlay('scr-occasion');} else if(id==='scr-player'){showOverlay('scr-name');} else if(id==='scr-final'){showOverlay('scr-player');} else if(id==='scr-creating'){showOverlay('scr-player');} else{hideAllOverlays();} }
 function goToOccasion(e) { haptic('medium'); if(e&&e.clientX)spawnParticles(e.clientX,e.clientY); showOverlay('scr-occasion'); }
 function openPlayerDirect() { haptic('light'); state.occasion=''; state.occasionLabel=''; var l=document.getElementById('player-occasion-label'); if(l)l.textContent='♪ · просто музика'; var tl=document.getElementById('player-track-label'); if(tl)tl.textContent='♡ · музика для натхнення'; buildSongList(); showOverlay('scr-player'); }
-function selectOccasion(key, label) { haptic('light'); state.occasion=key; state.occasionLabel=label; var n=document.getElementById('name-occasion-label'); if(n)n.textContent='♡ · '+label.toLowerCase(); var p=document.getElementById('player-occasion-label'); if(p)p.textContent='♡ · '+label.toLowerCase(); var t=document.getElementById('player-track-label'); if(t)t.textContent='♡ · '+label.toLowerCase(); setTimeout(function(){showOverlay('scr-name');},380); }
+function selectOccasion(key, label, el) { haptic('light'); if(el){el.classList.add('tapped');setTimeout(function(){el.classList.remove('tapped');},380);} state.occasion=key; state.occasionLabel=label; var n=document.getElementById('name-occasion-label'); if(n)n.textContent='♡ · '+label.toLowerCase(); var p=document.getElementById('player-occasion-label'); if(p)p.textContent='♡ · '+label.toLowerCase(); var t=document.getElementById('player-track-label'); if(t)t.textContent='♡ · '+label.toLowerCase(); setTimeout(function(){showOverlay('scr-name');},380); }
 function onNameInput() { var name=document.getElementById('rec-name').value.trim(); state.name=name; var echo=document.getElementById('name-echo'); if(echo){echo.classList.remove('show');void echo.offsetWidth;echo.textContent=name?'♡ · для '+name+' · з теплом':'';if(name)echo.classList.add('show');} }
 function goToPlayer() { haptic('light'); var n=document.getElementById('rec-name'); if(n)state.name=n.value.trim(); buildSongList(); showOverlay('scr-player'); }
 function stopAndBack() { pauseAudio(); goBack('scr-player'); }
@@ -680,7 +685,7 @@ function buildSongList() {
     var num=document.createElement('div'); num.className='song-num'; num.textContent=idx+1;
     var info=document.createElement('div'); info.className='song-info';
     var title=document.createElement('div'); title.className='song-title'; title.textContent=song.title;
-    var meta=document.createElement('div'); meta.className='song-meta'; meta.textContent='♪ · амбієнт';
+    var meta=document.createElement('div'); meta.className='song-meta'; meta.textContent=song.mood||'♪ · амбієнт';
     info.appendChild(title); info.appendChild(meta);
     var arrow=document.createElement('span'); arrow.className='song-arrow'; arrow.textContent='›';
     item.appendChild(num); item.appendChild(info); item.appendChild(arrow);
@@ -713,17 +718,17 @@ function goToFinal() {
   haptic('medium'); pauseAudio();
   for(var i=0;i<4;i++){var d=document.getElementById('dot-'+i);if(d)d.classList.remove('lit');}
   var d0=document.getElementById('dot-0'); if(d0)d0.classList.add('lit');
-  var msg=document.getElementById('creating-msg'); if(msg)msg.textContent='♡ Збираємо теплі слова...';
+  var msg=document.getElementById('creating-msg'); if(msg)msg.textContent='♡ Підбираємо слова від серця...';
   showOverlay('scr-creating');
-  var stages=[{time:900,msg:'✦ Додаємо трішки магії...',dot:1},{time:1800,msg:'♪ Готуємо музичний подарунок...',dot:2},{time:2700,msg:'♡ Майже готово...',dot:3}];
+  var stages=[{time:900,msg:'✦ Готуємо ваше повідомлення...',dot:1},{time:1800,msg:'♪ Прикладаємо музику до слів...',dot:2},{time:2700,msg:'♡ Майже готово — ще мить...',dot:3}];
   stages.forEach(function(s){setTimeout(function(){var el=document.getElementById('creating-msg');var dot=document.getElementById('dot-'+s.dot);if(el)el.textContent=s.msg;if(dot)dot.classList.add('lit');},s.time);});
-  setTimeout(function(){showOverlay('scr-final');var te=document.getElementById('final-title');var se=document.getElementById('final-sub');var n=state.name;if(te)te.textContent=n?'♡ Знак уваги для '+n:'♡ Знак уваги готовий';var st=state.songIdx>=0?'«'+SONGS[state.songIdx].title+'» ':'музику ';if(se)se.textContent=n?'Надішліть '+st+'для '+n+' — натисніть кнопку нижче ♡':'Натисніть «Надіслати», щоб поділитись подарунком ♡';},3700);
+  setTimeout(function(){showOverlay('scr-final');var te=document.getElementById('final-title');var se=document.getElementById('final-sub');var n=state.name;if(te)te.textContent=n?'♡ Знак уваги для '+n:'♡ Знак уваги готовий';var st=state.songIdx>=0?'«'+SONGS[state.songIdx].title+'» ':'музику ';if(se)se.textContent=n?'Надішліть '+st+'для '+n+' — натисніть кнопку нижче ♡':'Натисніть «Надіслати», щоб поділитись подарунком ♡';var gc=document.getElementById('final-gift-card');var gct=document.getElementById('fgc-track');var gcf=document.getElementById('fgc-for');if(gc&&gct&&gcf){gct.textContent=state.songIdx>=0?'♪ '+SONGS[state.songIdx].title:'♪ Музичний подарунок';gcf.textContent=(n?'для '+n+' · ':'')+(state.occasionLabel?state.occasionLabel.toLowerCase():'знак уваги');gc.style.display='';}},3700);
 }
-function sendToTelegram() { var name=state.name||'тебе'; var url='https://t.me/vitayko_ua_bot'; var song=state.songIdx>=0?' · «'+SONGS[state.songIdx].title+'»':''; var occasion=state.occasionLabel?' · '+state.occasionLabel.toLowerCase():''; var shareText='♡ '+name+occasion+song+' — подарунок уваги від VitayKo'; if(tg){tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(shareText));}else if(navigator.share){navigator.share({title:'VitayKo',text:shareText+': '+url,url:url}).catch(function(){});}else if(navigator.clipboard){navigator.clipboard.writeText(shareText+': '+url).then(function(){showToast('❖ Посилання скопійовано!');});} }
+function sendToTelegram() { var name=state.name||'тебе'; var url='https://t.me/vitayko_ua_bot'; var song=state.songIdx>=0?' · «'+SONGS[state.songIdx].title+'»':''; var occasion=state.occasionLabel?' · '+state.occasionLabel.toLowerCase():''; var shareText='♡ '+name+occasion+song+' — подарунок уваги від VitayKo'; var sb=document.querySelector('#scr-final .btn-confirm'); function confirmSent(){if(sb){var ob=sb.innerHTML;sb.textContent='✓ · Готово ♡';sb.style.opacity='0.8';setTimeout(function(){sb.innerHTML=ob;sb.style.opacity='';},3000);}} if(tg){tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(shareText));confirmSent();showToast('✈ Telegram відкрито — надішліть подарунок ♡');}else if(navigator.share){navigator.share({title:'VitayKo',text:shareText+': '+url,url:url}).then(function(){confirmSent();showToast('✈ Надіслано ♡');}).catch(function(){});}else if(navigator.clipboard){navigator.clipboard.writeText(shareText+': '+url).then(function(){confirmSent();showToast('✦ Посилання скопійовано ♡');});} }
 function downloadAudio() { if(state.songIdx<0){showToast('♡ Спочатку оберіть трек');return;} var src=SONGS[state.songIdx].src; if(src.indexOf('songs/')<0){showToast('♪ Завантаження буде доступне у фінальній версії');return;} var a=document.createElement('a'); a.href=src; a.download='vitayko-'+(state.name||'подарунок')+'.mp3'; a.target='_blank'; document.body.appendChild(a); a.click(); document.body.removeChild(a); showToast('↓ Завантаження розпочато...'); }
 function listenAgain() { showOverlay('scr-player'); if(state.songIdx>=0)setTimeout(function(){playAudio();},400); }
 function shareApp() { var url='https://t.me/vitayko_ua_bot'; var text='♡ VitayKo — музичний подарунок уваги для рідних. Спробуй!'; if(tg){tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text));}else if(navigator.share){navigator.share({title:'VitayKo',text:text,url:url}).catch(function(){});}else if(navigator.clipboard){navigator.clipboard.writeText(url).then(function(){showToast('✦ Посилання скопійовано!');});} }
-function startOver() { haptic('medium'); pauseAudio(); state.occasion=''; state.occasionLabel=''; state.name=''; state.songIdx=-1; var n=document.getElementById('rec-name'); var e=document.getElementById('name-echo'); if(n)n.value=''; if(e){e.textContent='';e.classList.remove('show');} var pn=document.getElementById('player-song-name'); if(pn)pn.textContent='♪ Оберіть трек нижче'; hideAllOverlays(); showToast('♡ Починаємо спочатку'); }
+function startOver() { haptic('medium'); pauseAudio(); state.occasion=''; state.occasionLabel=''; state.name=''; state.songIdx=-1; var n=document.getElementById('rec-name'); var e=document.getElementById('name-echo'); if(n)n.value=''; if(e){e.textContent='';e.classList.remove('show');} var pn=document.getElementById('player-song-name'); if(pn)pn.textContent='♪ Оберіть трек нижче'; var gc=document.getElementById('final-gift-card'); if(gc)gc.style.display='none'; hideAllOverlays(); showToast('♡ Для кого наступний подарунок?'); }
 function spawnParticles(x,y) { var g=['♡','✦','♪','♫','♩','·']; for(var i=0;i<8;i++){(function(idx){var el=document.createElement('div');el.className='particle';el.textContent=g[idx%g.length];var angle=(idx/8)*Math.PI*2;var dist=35+Math.random()*35;el.style.setProperty('--tx',Math.cos(angle)*dist+'px');el.style.left=x+'px';el.style.top=y+'px';el.style.color=idx%2===0?'#C8A84B':'#5C6B45';el.style.fontSize=(11+Math.floor(Math.random()*10))+'px';document.body.appendChild(el);setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},1400);})(i);} }
 </script>
 </body>
